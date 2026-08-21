@@ -21,18 +21,31 @@
 <body>
 <p class="lang"><a href="../privacy-policy/">Read this in English</a></p>
 <h1>Privatlivspolitik for Skolefinder</h1>
-<p><strong>Gældende fra: 15. juli 2026</strong></p>
+<p><strong>Gældende fra: 21. august 2026</strong></p>
 <p>Skolefinder er en app til at finde og sammenligne danske grundskoler. Vi har bygget appen med respekt for dit privatliv: du behøver ingen konto, og vi sporer dig ikke på tværs af apps eller hjemmesider.</p>
 <p>Denne tekst er den autoritative version (dansk). En engelsk oversættelse findes også; ved uoverensstemmelser gælder den danske tekst.</p>
 <h2>Dataansvarlig</h2>
 <p>Skolefinder<br>Kontakt: info@skolefinder.dk</p>
 <h2>Hvilke oplysninger vi behandler</h2>
+<h3>Installations-id og support-kode</h3>
+<p>Første gang du åbner appen, danner den et tilfældigt installations-id. Det laves på din enhed, er ikke udledt af telefonens id (hverken reklame-id eller producentens enheds-id), og det gemmes lokalt på enheden.</p>
+<p>Id'et sendes med, hver gang appen henter data fra vores egen server, og det indgår i fejlrapporter til Sentry. Det har ét formål: at en henvendelse om et problem kan kobles til de forespørgsler og fejl, den handler om. Appen har ingen konti, så uden id'et er der intet at koble på, og vi kan ikke se, hvilke linjer i logfilerne der hører til netop din henvendelse.</p>
+<p>De første otte tegn udgør din support-kode. Skriver du til os fra appen, følger koden automatisk med i beskeden, hvor du selv kan se den og slette den, før du sender.</p>
+<p>Om id'et gælder:</p>
+<ul>
+<li>det deles ikke med andre apps eller virksomheder,</li>
+<li>det bruges ikke til reklamer og kobles aldrig sammen med data fra andre virksomheder,</li>
+<li>det siger intet om, hvem du er — vi kender hverken navn eller e-mail,</li>
+<li>det forsvinder, når du sletter appen; en ny installation får et nyt id.</li>
+</ul>
+<p>Id'et er stabilt, indtil du sletter appen. Derfor behandler vi de fejl- og driftsdata, det optræder i, som personoplysninger, selv om vi ikke kan se, hvem du er. Retsgrundlaget er vores legitime interesse (GDPR art. 6, stk. 1, litra f) i at kunne fejlsøge konkrete henvendelser.</p>
 <h3>Fejl- og nedbrudsrapporter</h3>
 <p>Hvis appen går ned eller støder på en fejl, sender den automatisk en teknisk rapport til Sentry (vores fejlovervågningsværktøj). En rapport indeholder tekniske oplysninger som:</p>
 <ul>
 <li>fejlens stakspor (hvor i koden fejlen skete),</li>
 <li>enhedsmodel, styresystem og styresystemversion,</li>
 <li>appversion,</li>
+<li>dit installations-id (beskrevet ovenfor),</li>
 <li>en anonym sessions-status (om appsessionen sluttede normalt eller med et nedbrud).</li>
 </ul>
 <p>Rapporterne bruges udelukkende til at finde og rette fejl. Vi bruger ikke performance-sporing, session replay eller lignende. Sentry hostes i EU (Tyskland), og rapporter slettes automatisk efter ca. 90 dage (Sentrys standardopbevaring).</p>
@@ -40,7 +53,7 @@
 <h3>Placering</h3>
 <p>Hvis du giver tilladelse, bruger appen din placering til at finde din kommune, så du ser skoler i nærheden. Dine koordinater sendes til vores server, som slår kommunen op via Dataforsyningens (DAWA) adressetjeneste. Koordinaterne gemmes ikke i nogen brugerprofil eller database. De kan optræde kortvarigt i serverens driftslogfiler og — hvis et opslag fejler — i en teknisk fejlrapport. Du kan til enhver tid afvise placeringsadgang i telefonens indstillinger; appen fungerer stadig, men viser ikke automatisk din kommune.</p>
 <h3>Serverlogfiler</h3>
-<p>Vores server gemmer midlertidigt almindelige webforespørgselslogfiler (IP-adresse, appversion, enhedsmodel, styresystem og den anmodede adresse) til drift og sikkerhed.</p>
+<p>Vores server gemmer midlertidigt almindelige webforespørgselslogfiler (IP-adresse, appversion, enhedsmodel, styresystem, dit installations-id og den anmodede adresse) til drift og sikkerhed. Logfilerne gemmes i ca. syv dage og slettes derefter automatisk.</p>
 <h2>Hvad vi IKKE gør</h2>
 <ul>
 <li>Ingen brugerkonto og intet login.</li>
@@ -54,9 +67,9 @@
 <h2>Skoledata</h2>
 <p>Alle skoledata kommer fra STIL (Styrelsen for It og Læring) via Uddannelsesstatistik.dk. Skolefinder er ikke tilknyttet eller godkendt af STIL.</p>
 <h2>Dine rettigheder</h2>
-<p>Efter GDPR har du ret til indsigt i, berigtigelse eller sletning af oplysninger om dig og til at gøre indsigelse mod vores behandling. Da vi ikke har brugerkonti, er de eneste oplysninger, der kan knyttes til dig, de midlertidige fejl- og driftsdata beskrevet ovenfor. Kontakt os på info@skolefinder.dk, hvis du vil udøve dine rettigheder eller har spørgsmål. Du kan også klage til Datatilsynet (<a href="https://www.datatilsynet.dk">datatilsynet.dk</a>).</p>
+<p>Efter GDPR har du ret til indsigt i, berigtigelse eller sletning af oplysninger om dig og til at gøre indsigelse mod vores behandling. Da vi ikke har brugerkonti, er de eneste oplysninger, der kan knyttes til dig, de fejl- og driftsdata, der er beskrevet ovenfor, og som bærer dit installations-id. Oplyser du din support-kode, kan vi finde dem; uden den kan vi det ikke, for vi har ingen anden måde at genkende dig på. Kontakt os på info@skolefinder.dk, hvis du vil udøve dine rettigheder eller har spørgsmål. Du kan også klage til Datatilsynet (<a href="https://www.datatilsynet.dk">datatilsynet.dk</a>).</p>
 <h2>Ændringer</h2>
 <p>Hvis vi ændrer denne politik, opdaterer vi datoen øverst og den version, der er tilgængelig i appen og online.</p>
-<p><strong>Senest opdateret: juli 2026</strong></p>
+<p><strong>Senest opdateret: august 2026</strong></p>
 </body>
 </html>
