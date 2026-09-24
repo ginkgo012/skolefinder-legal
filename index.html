@@ -3,27 +3,320 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skolefinder</title>
+<title>Skolefinder – alle landets grundskoler, side om side</title>
+<meta name="description" content="Skolefinder er en gratis app til iPhone med ministeriets tal for alle danske grundskoler: karakterer, trivsel, fravær og elevtal, skoleår for skoleår. Ingen konto, ingen sporing, ingen samlet score.">
+<link rel="canonical" href="https://skolefinder.dk/">
+<meta name="apple-itunes-app" content="app-id=6804271817">
+<meta name="theme-color" content="#5C7C97">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Skolefinder">
+<meta property="og:title" content="Skolefinder – alle landets grundskoler, side om side">
+<meta property="og:description" content="Ministeriets tal for karakterer, trivsel, fravær og elevtal, skoleår for skoleår. Gratis app til iPhone. Ingen konto, ingen sporing, ingen samlet score.">
+<meta property="og:url" content="https://skolefinder.dk/">
+<meta property="og:image" content="https://skolefinder.dk/assets/img/app-icon-1024.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta property="og:locale" content="da_DK">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/LibreCaslonText-SemiBold.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Regular.woff2" crossorigin>
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-         max-width: 42rem; margin: 0 auto; padding: 2rem 1.25rem 4rem;
-         line-height: 1.6; color: #1d2939; background: #fcfcfc; }
-  @media (prefers-color-scheme: dark) { body { color: #e4e7ec; background: #101418; } a { color: #7fb2d9; } }
-  h1 { font-size: 1.6rem; line-height: 1.25; }
-  a { color: #29506B; }
-  ul { padding-left: 1.25rem; }
-  .en { margin-top: 2.5rem; font-size: .95rem; }
+  /* The app's two faces, self-hosted (SIL OFL 1.1, licences in assets/fonts/). */
+  @font-face { font-family: "Libre Caslon Text"; font-weight: 600; font-style: normal; font-display: swap;
+               src: url("assets/fonts/LibreCaslonText-SemiBold.woff2") format("woff2"); }
+  @font-face { font-family: "Libre Caslon Text"; font-weight: 700; font-style: normal; font-display: swap;
+               src: url("assets/fonts/LibreCaslonText-Bold.woff2") format("woff2"); }
+  @font-face { font-family: "Hanken Grotesk"; font-weight: 400; font-style: normal; font-display: swap;
+               src: url("assets/fonts/HankenGrotesk-Regular.woff2") format("woff2"); }
+  @font-face { font-family: "Hanken Grotesk"; font-weight: 500; font-style: normal; font-display: swap;
+               src: url("assets/fonts/HankenGrotesk-Medium.woff2") format("woff2"); }
+  @font-face { font-family: "Hanken Grotesk"; font-weight: 600; font-style: normal; font-display: swap;
+               src: url("assets/fonts/HankenGrotesk-SemiBold.woff2") format("woff2"); }
+
+  /* Tokens — the app's own (DESIGN.md §2): warm near-neutral paper, one petrol accent,
+     and the icon's dusty blue as the cover. */
+  :root {
+    color-scheme: light dark;
+    --brand: #5C7C97;
+    --brand-ink: #FCFBF7;
+    --page: #FAFAF8;
+    --paper: #FFFFFF;
+    --recess: #F4F2ED;
+    --hairline: #E9E7E2;
+    --rule: #DCD9D1;
+    --ink: #201E1B;
+    --ink-2: #575349;
+    --ink-3: #767162;
+    --action: #29506B;
+    --action-wash: #DCE7ED;
+    --bezel: #1B1917;
+    --display: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+    --body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --gutter: clamp(1rem, 4vw, 2rem);
+    --measure: 64ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #141413;
+      --paper: #1E1D1B;
+      --recess: #242220;
+      --hairline: #2C2A27;
+      --rule: #3A3733;
+      --ink: #EAE8E3;
+      --ink-2: #B7B3AA;
+      --ink-3: #8F8A80;
+      --action: #5C8FAD;
+      --action-wash: #1F3140;
+      --bezel: #2C2A27;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--page);
+    font-feature-settings: "kern";
+  }
+  h1, h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+  }
+  h2 { font-size: 1.5rem; margin-bottom: .75rem; }
+  p { margin: 0 0 1rem; max-width: var(--measure); }
+  a { color: var(--action); text-decoration-thickness: 1px; text-underline-offset: .15em; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--action); outline-offset: 3px; border-radius: 2px; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Header — the icon is the logo, the way it stands on a phone. */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+  .brand { display: inline-flex; align-items: center; gap: .75rem; color: var(--ink); text-decoration: none;
+           font-family: var(--display); font-weight: 600; font-size: 1.25rem; }
+  .brand img { width: 40px; height: 40px; border-radius: 22%; }
+  .top-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; font-size: .9375rem; font-weight: 500; }
+  .top-nav a { color: var(--ink-2); text-decoration: none; padding: .25rem 0; }
+  .top-nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  /* Hero — the cover: the icon's blue, the magnifier at page scale, its handle leaving the
+     left edge as it does on the tile. Everything written on the blue is large, because
+     the icon's white reads 4.4:1 on it: fine for display, not for a paragraph. */
+  .hero { position: relative; background: var(--brand); color: var(--brand-ink); overflow: hidden;
+          --glass: min(40rem, 44vw); }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                gap: 2rem; align-items: center; min-height: 32rem; padding-top: 3rem; padding-bottom: 3rem; }
+  /* glass.png is the icon's magnifier on the icon's own blue, its handle continued far past
+     the frame, so the handle always leaves through an edge of the band, never ending in it. */
+  .hero-art { position: absolute; right: calc(50% + 2rem); top: calc(50% - var(--glass) * 0.26);
+              width: calc(var(--glass) * 2.25); pointer-events: none; }
+  .hero-art img { width: 100%; max-width: none; }
+  .hero-copy { grid-column: 2; }
+  .hero h1 { font-size: clamp(2.125rem, 1.4rem + 2.6vw, 3.25rem); letter-spacing: -0.01em; text-wrap: balance;
+             margin-bottom: 1rem; }
+  .hero-sub { font-size: 1.5rem; line-height: 1.35; max-width: 26ch; margin-bottom: 2rem; text-wrap: pretty; }
+  .store { display: inline-block; line-height: 0; border-radius: 8px; }
+  .store img { height: 56px; width: auto; }
+  .store:hover { opacity: .92; }
+  .hero .store:focus-visible { outline-color: var(--brand-ink); }
+
+  /* Sections on paper. Hairlines carry the structure, as they do in the app. */
+  main > section:not(.hero) { padding: 3.5rem 0; }
+  main > section:not(.hero) + section:not(.hero) > .wrap { border-top: 1px solid var(--rule); padding-top: 3.5rem; }
+  main > section:not(.hero) { padding-top: 0; }
+  .intro { padding-top: 3.5rem !important; }
+  .lead { font-size: 1.25rem; line-height: 1.5; }
+  .facts { list-style: none; margin: 1.5rem 0 0; padding: 0; max-width: var(--measure); border-top: 1px solid var(--hairline); }
+  .facts li { padding: .75rem 0; border-bottom: 1px solid var(--hairline); color: var(--ink-2); }
+
+  .ledger { margin: 0; }
+  .ledger > div { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .25rem 1.5rem;
+                  padding: .875rem 0; border-top: 1px solid var(--hairline); }
+  .ledger > div:last-child { border-bottom: 1px solid var(--hairline); }
+  .ledger dt { font-weight: 600; margin: 0; }
+  .ledger dd { margin: 0; color: var(--ink-2); }
+
+  .see .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: 3rem; align-items: start; }
+  .phone { margin: 0; justify-self: end; width: 17rem; }
+  .phone img { border-radius: 2.6rem; border: 10px solid var(--bezel); outline: 1px solid var(--rule); background: var(--bezel); }
+  .phone figcaption { font-size: .875rem; color: var(--ink-3); margin-top: .75rem; line-height: 1.4; }
+
+  .find .ledger { column-count: 2; column-gap: 3rem; }
+  .find .ledger > div { break-inside: avoid; grid-template-columns: 1fr; gap: .125rem; }
+
+  .pair .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .pair p { max-width: 48ch; }
+
+  .english .store { margin: .5rem 0 1.25rem; }
+  .english .store img { height: 48px; }
+  .english .links { font-size: .9375rem; }
+  .english .links a + a { margin-left: 1.25rem; }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0 3rem; color: var(--ink-3); font-size: .9375rem; }
+  footer .wrap { display: grid; gap: 1rem; }
+  .foot-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+  .foot-nav a { color: var(--ink-2); text-decoration: none; }
+  .foot-nav a:hover { text-decoration: underline; color: var(--ink); }
+  footer p { margin: 0; max-width: none; }
+
+  @media (max-width: 52rem) {
+    .hero { --glass: min(74vw, 26rem); }
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-top: 0; padding-bottom: 2.5rem; gap: 0; }
+    .hero-art { position: relative; right: auto; top: auto; width: var(--glass); height: calc(var(--glass) * 0.66);
+                margin: 1.5rem 0 1rem calc(-1 * var(--gutter)); overflow: hidden; }
+    .hero-art img { width: calc(var(--glass) * 2.25); margin-left: calc(-1.25 * var(--glass)); }
+    .hero-copy { grid-column: 1; }
+    .hero-sub { font-size: 1.375rem; }
+    .see .wrap { grid-template-columns: 1fr; }
+    .phone { justify-self: start; width: 15rem; }
+    .find .ledger { column-count: 1; }
+    .pair .wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .ledger > div { grid-template-columns: 1fr; gap: .125rem; }
+  }
+  @media (max-width: 30rem) {
+    .top { flex-direction: column; align-items: flex-start; }
+    .store img { height: 52px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .store img { transition: opacity .15s ease; }
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Skolefinder",
+  "operatingSystem": "iOS",
+  "applicationCategory": "EducationApplication",
+  "inLanguage": ["da", "en"],
+  "url": "https://skolefinder.dk/",
+  "installUrl": "https://apps.apple.com/dk/app/skolefinder-danish-schools/id6804271817",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "DKK" },
+  "description": "Ministeriets tal for alle danske grundskoler – karakterer, trivsel, fravær og elevtal, skoleår for skoleår, side om side. Ingen konto, ingen sporing, ingen samlet score."
+}
+</script>
 </head>
 <body>
-<h1>Skolefinder</h1>
-<p>En app til iPhone og Android til at finde og sammenligne danske grundskoler. Alle skoledata kommer fra Uddannelsesstatistik.dk og er gratis for alle.</p>
-<ul>
-<li><a href="./support/">Support</a> — kontakt, køb og tal, der ser forkerte ud</li>
-<li><a href="./privatlivspolitik/">Privatlivspolitik</a></li>
-<li><a href="./privacy-policy/">Privacy policy (English)</a></li>
-</ul>
-<p class="en" lang="en">Skolefinder is an app for finding and comparing Danish primary schools. <a href="./support/#english">Support in English</a>.</p>
+<header class="top wrap">
+  <a class="brand" href="./"><img src="assets/img/app-icon-512.png" width="40" height="40" alt="">Skolefinder</a>
+  <nav class="top-nav" aria-label="Sider">
+    <a href="./support/">Support</a>
+    <a href="./privatlivspolitik/">Privatlivspolitik</a>
+    <a href="#english" lang="en">English</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero-art" aria-hidden="true"><img src="assets/img/glass.png" alt="" width="1800" height="1100" fetchpriority="high"></div>
+    <div class="hero-copy">
+      <h1 id="hero-title">Alle landets grundskoler, side om side.</h1>
+      <p class="hero-sub">Ministeriets tal for karakterer, trivsel, fravær og elevtal, skoleår for skoleår. Ingen konto, ingen samlet score.</p>
+      <a class="store" href="https://apps.apple.com/dk/app/skolefinder-danish-schools/id6804271817"><img src="assets/img/app-store-badge-da.svg" alt="Hent i App Store" width="167" height="56"></a>
+    </div>
+  </div>
+</section>
+
+<section class="intro" aria-labelledby="intro-title">
+  <div class="wrap">
+    <h2 id="intro-title">Til forældre, der skal vælge skole</h2>
+    <p class="lead">Skolefinder samler ministeriets tal for alle landets grundskoler – over 1.900 folkeskoler, private grundskoler og kommunale internationale skoler – og viser dem side om side, så du selv kan sammenligne skolerne i din kommune. Ingen samlet score og ingen dom: du drager konklusionen.</p>
+    <ul class="facts">
+      <li>Gratis at bruge: hver skole, hvert tal, hver graf, hvert skoleår.</li>
+      <li>Ingen konto, ingen reklamer, ingen sporing.</li>
+      <li>På dansk og engelsk, med fuld understøttelse af VoiceOver og stor tekst.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="see" aria-labelledby="see-title">
+  <div class="wrap">
+    <div class="see-text">
+      <h2 id="see-title">Det kan du se for hver skole</h2>
+      <dl class="ledger">
+        <div><dt>Karakterer</dt><dd>Gennemsnit for de bundne prøver i 9. klasse, fag for fag, med kommunens og landets gennemsnit ved siden af.</dd></div>
+        <div><dt>Trivsel</dt><dd>Den nationale trivselsmåling, indikator for indikator.</dd></div>
+        <div><dt>Fravær</dt><dd>Sygefravær, lovligt og ulovligt fravær.</dd></div>
+        <div><dt>Elever og forældre</dt><dd>Elevtal, klassestørrelse, elevernes baggrund og forældrenes uddannelsesniveau.</dd></div>
+        <div><dt>Ansatte</dt><dd>Personalet fordelt på kategorier.</dd></div>
+        <div><dt>Kompetencedækning</dt><dd>Hvor stor en del af timerne der varetages af lærere med undervisningskompetence i faget.</dd></div>
+        <div><dt>Ansøgninger</dt><dd>Hvor eleverne i 9. og 10. klasse søger hen efter grundskolen.</dd></div>
+        <div><dt>Udviklingen</dt><dd>Alle offentliggjorte skoleår, med coronaårene markeret.</dd></div>
+      </dl>
+    </div>
+    <figure class="phone">
+      <img src="assets/img/screen.png" alt="Skolefinder på en iPhone: en skoles side, fanen Elever og forældre, med forældrenes uddannelsesniveau for skoleåret 2025/2026." width="640" height="1403">
+      <figcaption>En skoles side i appen. Hvert tal står med sit skoleår og sin definition.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="find" aria-labelledby="find-title">
+  <div class="wrap">
+    <h2 id="find-title">Find og sammenlign</h2>
+    <dl class="ledger">
+      <div><dt>Kort og liste</dt><dd>Skolerne i din kommune. Sortér efter afstand, navn eller karaktergennemsnit.</dd></div>
+      <div><dt>Filtre</dt><dd>Filtrér på skoletype, og skift skoleår med ét tryk.</dd></div>
+      <div><dt>Sammenligning</dt><dd>Op til ti skoler side om side, tal for tal.</dd></div>
+      <div><dt>Favoritter</dt><dd>Gem skoler, og find dem igen under Min profil.</dd></div>
+      <div><dt>Udskriften</dt><dd>Alle offentliggjorte skoleår for én skole på ét sted, med kilde, dato og hvert manglende tal navngivet.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="pair" aria-label="Tallene og privatliv">
+  <div class="wrap">
+    <div>
+      <h2>Tallene</h2>
+      <p>Alle tal kommer fra Uddannelsesstatistik.dk, Børne- og Undervisningsministeriets portal for uddannelsesstatistik, og vises altid med det skoleår, den kommune og den definition, de hører til. Hvor ministeriet ikke offentliggør et tal – fordi gruppen er for lille, eller fordi året endnu ikke er opgjort – viser Skolefinder et tomt felt og siger hvorfor. Aldrig et gæt.</p>
+    </div>
+    <div>
+      <h2>Privatliv</h2>
+      <p>Skolefinder kræver ingen konto og sporer dig ikke. Ingen reklamer, ingen analyse af din brug. Din placering bruges kun – med din tilladelse – til at finde din kommune, og den gemmes ikke. <a href="./privatlivspolitik/">Læs privatlivspolitikken</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="plus" aria-labelledby="plus-title">
+  <div class="wrap">
+    <h2 id="plus-title">Skolefinder Plus</h2>
+    <p>Alt, du kan læse i appen, er gratis – hver skole, hvert tal, hver graf, hvert skoleår. Skolefinder Plus er et engangskøb, ikke et abonnement, og låser appens betalte funktioner op: i dag at sende udskriften som PDF-fil, dateret og med sidetal, for alle skoler og alle offentliggjorte skoleår. Du støtter appen – du køber ikke tallene. <a href="./support/#plus">Køb, gendannelse og refusion</a>.</p>
+  </div>
+</section>
+
+<section class="english" lang="en" id="english" aria-labelledby="en-title">
+  <div class="wrap">
+    <h2 id="en-title">Skolefinder in English</h2>
+    <p>Skolefinder is a free iPhone app for parents choosing a school in Denmark. It gathers the ministry's figures for every primary and lower-secondary school in the country – grades, wellbeing, absence and pupil numbers, school year by school year – and puts them side by side. No account, no tracking, no overall score. The app is in Danish and English.</p>
+    <a class="store" href="https://apps.apple.com/dk/app/skolefinder-danish-schools/id6804271817"><picture>
+      <source srcset="assets/img/app-store-badge-en-white.svg" media="(prefers-color-scheme: dark)">
+      <img src="assets/img/app-store-badge-en.svg" alt="Download on the App Store" width="144" height="48">
+    </picture></a>
+    <p class="links"><a href="./support/#english">Support in English</a><a href="./privacy-policy/">Privacy policy</a></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Sider">
+      <a href="./support/">Support</a>
+      <a href="./privatlivspolitik/">Privatlivspolitik</a>
+      <a href="./privacy-policy/" lang="en">Privacy policy</a>
+      <a href="mailto:info@skolefinder.dk">info@skolefinder.dk</a>
+    </nav>
+    <p>Skoledata fra Uddannelsesstatistik.dk, Børne- og Undervisningsministeriet. Appen findes til iPhone i App Store.</p>
+  </div>
+</footer>
 </body>
 </html>
