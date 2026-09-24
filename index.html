@@ -131,31 +131,18 @@
 
   /* Sections on paper. Hairlines carry the structure, as they do in the app. */
   main > section:not(.hero) { padding: 3.5rem 0; }
-  main > section:not(.hero) + section:not(.hero) > .wrap { border-top: 1px solid var(--rule); padding-top: 3.5rem; }
-  main > section:not(.hero) { padding-top: 0; }
-  .intro { padding-top: 3.5rem !important; }
+  .about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: 3rem; align-items: start; }
   .lead { font-size: 1.25rem; line-height: 1.5; }
-  .facts { list-style: none; margin: 1.5rem 0 0; padding: 0; max-width: var(--measure); border-top: 1px solid var(--hairline); }
-  .facts li { padding: .75rem 0; border-bottom: 1px solid var(--hairline); color: var(--ink-2); }
-
-  .ledger { margin: 0; }
-  .ledger > div { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .25rem 1.5rem;
-                  padding: .875rem 0; border-top: 1px solid var(--hairline); }
-  .ledger > div:last-child { border-bottom: 1px solid var(--hairline); }
-  .ledger dt { font-weight: 600; margin: 0; }
-  .ledger dd { margin: 0; color: var(--ink-2); }
-
-  .see .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: 3rem; align-items: start; }
+  .terms-title { font-weight: 600; margin: 2rem 0 .5rem; }
+  .terms { list-style: none; margin: 0; padding: 0; max-width: 34rem; display: grid; grid-template-columns: 1fr 1fr;
+           column-gap: 2rem; border-top: 1px solid var(--hairline); }
+  .terms li { padding: .5rem 0; border-bottom: 1px solid var(--hairline); }
+  .facts { list-style: none; margin: 2.5rem 0 0; padding: 0; max-width: var(--measure); border-top: 1px solid var(--hairline); }
+  .facts li { padding: .875rem 0; border-bottom: 1px solid var(--hairline); color: var(--ink-2); }
   .phone { margin: 0; justify-self: end; width: 17rem; }
   .phone img { border-radius: 2.6rem; border: 10px solid var(--bezel); outline: 1px solid var(--rule); background: var(--bezel); }
-  .phone figcaption { font-size: .875rem; color: var(--ink-3); margin-top: .75rem; line-height: 1.4; }
 
-  .find .ledger { column-count: 2; column-gap: 3rem; }
-  .find .ledger > div { break-inside: avoid; grid-template-columns: 1fr; gap: .125rem; }
-
-  .pair .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .pair p { max-width: 48ch; }
-
+  .english .wrap { border-top: 1px solid var(--rule); padding-top: 3.5rem; }
   .english .store { margin: .5rem 0 1.25rem; }
   .english .store img { height: 48px; }
   .english .links { font-size: .9375rem; }
@@ -176,15 +163,15 @@
     .hero-art img { width: calc(var(--glass) * 2.25); margin-left: calc(-1.25 * var(--glass)); }
     .hero-copy { grid-column: 1; }
     .hero-sub { font-size: 1.375rem; }
-    .see .wrap { grid-template-columns: 1fr; }
+    .about .wrap { grid-template-columns: 1fr; }
     .phone { justify-self: start; width: 15rem; }
-    .find .ledger { column-count: 1; }
-    .pair .wrap { grid-template-columns: 1fr; gap: 2rem; }
-    .ledger > div { grid-template-columns: 1fr; gap: .125rem; }
   }
   @media (max-width: 30rem) {
     .top { flex-direction: column; align-items: flex-start; }
     .store img { height: 52px; }
+  }
+  @media (max-width: 26rem) {
+    .terms { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: no-preference) {
     .store img { transition: opacity .15s ease; }
@@ -221,83 +208,43 @@
     <div class="hero-art" aria-hidden="true"><img src="assets/img/glass.png" alt="" width="1800" height="1100" fetchpriority="high"></div>
     <div class="hero-copy">
       <h1 id="hero-title">Alle landets grundskoler, side om side.</h1>
-      <p class="hero-sub">Ministeriets tal for karakterer, trivsel, fravær og elevtal, skoleår for skoleår. Ingen konto, ingen samlet score.</p>
+      <p class="hero-sub">Karakterer, trivsel, fravær og elevtal – ministeriets tal, skoleår for skoleår.</p>
       <a class="store" href="https://apps.apple.com/dk/app/skolefinder-danish-schools/id6804271817"><img src="assets/img/app-store-badge-da.svg" alt="Hent i App Store" width="167" height="56"></a>
     </div>
   </div>
 </section>
 
-<section class="intro" aria-labelledby="intro-title">
+<section class="about" aria-labelledby="about-title">
   <div class="wrap">
-    <h2 id="intro-title">Til forældre, der skal vælge skole</h2>
-    <p class="lead">Skolefinder samler ministeriets tal for alle landets grundskoler – over 1.900 folkeskoler, private grundskoler og kommunale internationale skoler – og viser dem side om side, så du selv kan sammenligne skolerne i din kommune. Ingen samlet score og ingen dom: du drager konklusionen.</p>
-    <ul class="facts">
-      <li>Gratis at bruge: hver skole, hvert tal, hver graf, hvert skoleår.</li>
-      <li>Ingen konto, ingen reklamer, ingen sporing.</li>
-      <li>På dansk og engelsk, med fuld understøttelse af VoiceOver og stor tekst.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="see" aria-labelledby="see-title">
-  <div class="wrap">
-    <div class="see-text">
-      <h2 id="see-title">Det kan du se for hver skole</h2>
-      <dl class="ledger">
-        <div><dt>Karakterer</dt><dd>Gennemsnit for de bundne prøver i 9. klasse, fag for fag, med kommunens og landets gennemsnit ved siden af.</dd></div>
-        <div><dt>Trivsel</dt><dd>Den nationale trivselsmåling, indikator for indikator.</dd></div>
-        <div><dt>Fravær</dt><dd>Sygefravær, lovligt og ulovligt fravær.</dd></div>
-        <div><dt>Elever og forældre</dt><dd>Elevtal, klassestørrelse, elevernes baggrund og forældrenes uddannelsesniveau.</dd></div>
-        <div><dt>Ansatte</dt><dd>Personalet fordelt på kategorier.</dd></div>
-        <div><dt>Kompetencedækning</dt><dd>Hvor stor en del af timerne der varetages af lærere med undervisningskompetence i faget.</dd></div>
-        <div><dt>Ansøgninger</dt><dd>Hvor eleverne i 9. og 10. klasse søger hen efter grundskolen.</dd></div>
-        <div><dt>Udviklingen</dt><dd>Alle offentliggjorte skoleår, med coronaårene markeret.</dd></div>
-      </dl>
+    <div>
+      <h2 id="about-title">Til forældre, der skal vælge skole</h2>
+      <p class="lead">Skolefinder samler ministeriets tal for over 1.900 grundskoler og viser dem side om side, så du selv kan sammenligne skolerne i din kommune. Ingen samlet score – du drager konklusionen.</p>
+      <p class="terms-title" id="terms-title">Det kan du se for hver skole</p>
+      <ul class="terms" aria-labelledby="terms-title">
+        <li>Karakterer</li>
+        <li>Trivsel</li>
+        <li>Fravær</li>
+        <li>Elever og forældre</li>
+        <li>Ansatte</li>
+        <li>Kompetencedækning</li>
+        <li>Ansøgninger</li>
+      </ul>
+      <ul class="facts">
+        <li>Kort og liste over skolerne i din kommune. Sammenlign op til ti side om side, og gem dine favoritter.</li>
+        <li>Alle tal er fra Uddannelsesstatistik.dk og står med deres skoleår og definition. Et tomt felt er et tal, der ikke er offentliggjort – aldrig et gæt.</li>
+        <li>Gratis, uden konto, reklamer og sporing. Skolefinder Plus er et engangskøb, der låser udskriften som PDF op. <a href="./privatlivspolitik/">Privatlivspolitik</a> og <a href="./support/">support</a>.</li>
+      </ul>
     </div>
     <figure class="phone">
       <img src="assets/img/screen.png" alt="Skolefinder på en iPhone: en skoles side, fanen Elever og forældre, med forældrenes uddannelsesniveau for skoleåret 2025/2026." width="640" height="1403">
-      <figcaption>En skoles side i appen. Hvert tal står med sit skoleår og sin definition.</figcaption>
     </figure>
-  </div>
-</section>
-
-<section class="find" aria-labelledby="find-title">
-  <div class="wrap">
-    <h2 id="find-title">Find og sammenlign</h2>
-    <dl class="ledger">
-      <div><dt>Kort og liste</dt><dd>Skolerne i din kommune. Sortér efter afstand, navn eller karaktergennemsnit.</dd></div>
-      <div><dt>Filtre</dt><dd>Filtrér på skoletype, og skift skoleår med ét tryk.</dd></div>
-      <div><dt>Sammenligning</dt><dd>Op til ti skoler side om side, tal for tal.</dd></div>
-      <div><dt>Favoritter</dt><dd>Gem skoler, og find dem igen under Min profil.</dd></div>
-      <div><dt>Udskriften</dt><dd>Alle offentliggjorte skoleår for én skole på ét sted, med kilde, dato og hvert manglende tal navngivet.</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="pair" aria-label="Tallene og privatliv">
-  <div class="wrap">
-    <div>
-      <h2>Tallene</h2>
-      <p>Alle tal kommer fra Uddannelsesstatistik.dk, Børne- og Undervisningsministeriets portal for uddannelsesstatistik, og vises altid med det skoleår, den kommune og den definition, de hører til. Hvor ministeriet ikke offentliggør et tal – fordi gruppen er for lille, eller fordi året endnu ikke er opgjort – viser Skolefinder et tomt felt og siger hvorfor. Aldrig et gæt.</p>
-    </div>
-    <div>
-      <h2>Privatliv</h2>
-      <p>Skolefinder kræver ingen konto og sporer dig ikke. Ingen reklamer, ingen analyse af din brug. Din placering bruges kun – med din tilladelse – til at finde din kommune, og den gemmes ikke. <a href="./privatlivspolitik/">Læs privatlivspolitikken</a>.</p>
-    </div>
-  </div>
-</section>
-
-<section class="plus" aria-labelledby="plus-title">
-  <div class="wrap">
-    <h2 id="plus-title">Skolefinder Plus</h2>
-    <p>Alt, du kan læse i appen, er gratis – hver skole, hvert tal, hver graf, hvert skoleår. Skolefinder Plus er et engangskøb, ikke et abonnement, og låser appens betalte funktioner op: i dag at sende udskriften som PDF-fil, dateret og med sidetal, for alle skoler og alle offentliggjorte skoleår. Du støtter appen – du køber ikke tallene. <a href="./support/#plus">Køb, gendannelse og refusion</a>.</p>
   </div>
 </section>
 
 <section class="english" lang="en" id="english" aria-labelledby="en-title">
   <div class="wrap">
-    <h2 id="en-title">Skolefinder in English</h2>
-    <p>Skolefinder is a free iPhone app for parents choosing a school in Denmark. It gathers the ministry's figures for every primary and lower-secondary school in the country – grades, wellbeing, absence and pupil numbers, school year by school year – and puts them side by side. No account, no tracking, no overall score. The app is in Danish and English.</p>
+    <h2 id="en-title">In English</h2>
+    <p>Skolefinder is a free iPhone app for parents choosing a school in Denmark: the ministry's figures for every primary school, side by side. No account, no tracking, no overall score.</p>
     <a class="store" href="https://apps.apple.com/dk/app/skolefinder-danish-schools/id6804271817"><picture>
       <source srcset="assets/img/app-store-badge-en-white.svg" media="(prefers-color-scheme: dark)">
       <img src="assets/img/app-store-badge-en.svg" alt="Download on the App Store" width="144" height="48">
@@ -315,7 +262,7 @@
       <a href="./privacy-policy/" lang="en">Privacy policy</a>
       <a href="mailto:info@skolefinder.dk">info@skolefinder.dk</a>
     </nav>
-    <p>Skoledata fra Uddannelsesstatistik.dk, Børne- og Undervisningsministeriet. Appen findes til iPhone i App Store.</p>
+    <p>Skoledata fra Uddannelsesstatistik.dk, Børne- og Undervisningsministeriet.</p>
   </div>
 </footer>
 </body>
